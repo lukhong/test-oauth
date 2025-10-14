@@ -52,7 +52,7 @@ app.post("/authorize", (req, res) => {
   res.redirect(redirect.toString());
 });
 
-// 2️⃣ POST /token — code 교환
+// 2️⃣ /token POST — code 교환
 app.post("/token", (req, res) => {
   const { grant_type, code } = req.body;
 
@@ -67,16 +67,26 @@ app.post("/token", (req, res) => {
   const record = authCodes[code];
   if (!record) return res.status(400).json({ error: "invalid_grant" });
 
-  const token = jwt.sign({ sub: record.user.id }, JWT_SECRET, { expiresIn: "1h" });
-  tokens[token] = record.user;
+  // access token 생성
+  const accessToken = jwt.sign({ sub: record.user.id }, JWT_SECRET, { expiresIn: "1h" });
+
+  // refresh token 생성 (랜덤 문자열)
+  const refreshToken = crypto.randomBytes(16).toString("hex");
+
+  // 메모리 저장
+  tokens[accessToken] = record.user;
+  tokens[refreshToken] = record.user; // 필요시 refresh token 확인용
+
   delete authCodes[code];
 
   res.json({
-    access_token: token,
+    access_token: accessToken,
     token_type: "Bearer",
-    expires_in: 3600
+    expires_in: 3600,
+    refresh_token: refreshToken // 추가
   });
 });
+
 
 // 3️⃣ GET /userinfo — token 확인
 app.get("/userinfo", (req, res) => {
