@@ -97,5 +97,92 @@ app.get("/callback", (req, res) => {
   res.send(`<h3>Callback</h3><pre>${JSON.stringify(req.query, null, 2)}</pre>`);
 });
 
+// SmartThings 상호작용 단일 엔드포인트
+app.post("/interaction", async (req, res) => {
+  const { headers, configurationData, callbackAuthentication } = req.body;
+  const { interactionType, requestId } = headers;
+
+  if (!interactionType) {
+    return res.status(400).json({ error: "missing interactionType" });
+  }
+
+  // ----------------------
+  // Discovery 처리
+  // ----------------------
+  if (interactionType === "discovery") {
+    const response = {
+      headers: {
+        schema: "st-schema",
+        version: "1.0",
+        interactionType: "discoveryResponse",
+        requestId,
+      },
+      devices: [
+        {
+          deviceId: "device123",
+          label: "Mock Device",
+          location: "Living Room",
+          components: [
+            {
+              id: "main",
+              capabilities: [
+                { id: "switch", version: 1 },
+                { id: "temperatureMeasurement", version: 1 },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    return res.json(response);
+  }
+
+  // ----------------------
+  // grantCallbackAccess 처리
+  // ----------------------
+  if (interactionType === "grantCallbackAccess") {
+    try {
+      const { code, clientId, clientSecret, callbackUrls } = callbackAuthentication;
+      if (!callbackUrls?.oauthToken) {
+        return res.status(400).json({ error: "missing oauthToken URL in callbackUrls" });
+      }
+
+      // SmartThings가 제공한 URL로 POST해서 access token 요청
+      const tokenResponse = await axios.post(callbackUrls.oauthToken, {
+        grant_type: "authorization_code",
+        code,
+        client_id: clientId,
+        client_secret: clientSecret,
+      });
+
+      const response = {
+        headers: {
+          schema: "st-schema",
+          version: "1.0",
+          interactionType: "accessTokenResponse",
+          requestId,
+        },
+        callbackAuthentication: {
+          tokenType: "Bearer",
+          accessToken: tokenResponse.data.access_token,
+          refreshToken: tokenResponse.data.refresh_token,
+          expiresIn: tokenResponse.data.expires_in || 86400,
+        },
+      };
+
+      return res.json(response);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      return res.status(500).json({ error: "Failed to obtain access token from callbackUrls.oauthToken" });
+    }
+  }
+
+  // ----------------------
+  // 미지원 interactionType 처리
+  // ----------------------
+  return res.status(400).json({ error: `unsupported interactionType: ${interactionType}` });
+});
+
+
 // 서버 시작
 app.listen(PORT, () => console.log(`✅ Mock OAuth server running on ${PORT}`));
