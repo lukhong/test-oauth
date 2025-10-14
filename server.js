@@ -125,23 +125,23 @@ app.post("/interaction", async (req, res) => {
         schema: "st-schema",
         version: "1.0",
         interactionType: "discoveryResponse",
-        requestId,
+        requestId: "abcabcabc",
       },
       devices: [
-        {
-          deviceId: "device123",
-          label: "Mock Device",
-          location: "Living Room",
-          components: [
-            {
-              id: "main",
-              capabilities: [
-                { id: "switch", version: 1 },
-                { id: "temperatureMeasurement", version: 1 },
-              ],
-            },
-          ],
-        },
+      {
+         "externalDeviceId": "partner-device-id-1",
+         "friendlyName": "Rend Bulb",
+         "manufacturerInfo": {
+            "manufacturerName": "RENDER_TEST",
+            "modelName": "A19",
+            "hwVersion": "bulb",
+            "swVersion": "13.123.231"
+         },
+         "deviceContext" : {
+            "categories": ["light", "switch"]
+         },
+         "deviceHandlerType": "c2c-rgbw-color-bulb"
+      }
       ],
     };
     return res.json(response);
