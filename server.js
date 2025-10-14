@@ -8,6 +8,8 @@ import jwt from "jsonwebtoken";
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+// ✅ 추가: x-www-form-urlencoded 파싱
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
@@ -32,9 +34,15 @@ app.get("/authorize", (req, res) => {
 // 2️⃣ token endpoint
 app.post("/token", (req, res) => {
   const { grant_type, code } = req.body;
+
+  if (!grant_type) {
+    return res.status(400).json({ error: "missing grant_type" });
+  }
+
   if (grant_type !== "authorization_code") {
     return res.status(400).json({ error: "unsupported_grant_type" });
   }
+
   const record = authCodes[code];
   if (!record) return res.status(400).json({ error: "invalid_grant" });
 
