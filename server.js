@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import axios from "axios";
 
 const app = express();
 app.use(cors());
@@ -130,17 +131,17 @@ app.post("/interaction", async (req, res) => {
       devices: [
       {
          "externalDeviceId": "partner-device-id-1",
-         "friendlyName": "Rend Bulb",
+         "friendlyName": "Rend ",
          "manufacturerInfo": {
-            "manufacturerName": "RENDER_TEST",
-            "modelName": "A19",
-            "hwVersion": "bulb",
-            "swVersion": "13.123.231"
+            "manufacturerName": "Virtual Hyundai",
+            "modelName": "Test Model",
+            "hwVersion": "3",
+            "swVersion": "1.0"
          },
          "deviceContext" : {
-            "categories": ["light", "switch"]
+            "categories": ["Car"]
          },
-         "deviceHandlerType": "c2c-rgbw-color-bulb"
+         "deviceHandlerType": "4e8bdf64-c46a-4c9c-8d01-3929d9c923ed"
       }
       ],
     };
@@ -185,6 +186,347 @@ app.post("/interaction", async (req, res) => {
       console.error(err.response?.data || err.message);
       return res.status(500).json({ error: "Failed to obtain access token from callbackUrls.oauthToken" });
     }
+  }
+
+  // ----------------------
+  // stateRefresh 처리
+  // ----------------------
+  if (interactionType === "stateRefresh") {
+    const { devices } = req.body;
+    
+    const deviceState = {
+      externalDeviceId: "partner-device-id-1",
+      deviceCookie: {},
+      states: [
+        // vehicleHvacRemoteSwitch
+        {
+          "component": "main",
+          "capability": "vehicleHvacRemoteSwitch",
+          "attribute": "switch",
+          "value": null
+        },
+        // vehicleWindowState
+        {
+          "component": "main",
+          "capability": "vehicleWindowState",
+          "attribute": "frontRightWindow",
+          "value": "closed"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWindowState",
+          "attribute": "rearRightWindow",
+          "value": "closed"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWindowState",
+          "attribute": "supportedAttributes",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWindowState",
+          "attribute": "frontLeftWindow",
+          "value": "closed"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWindowState",
+          "attribute": "rearLeftWindow",
+          "value": "closed"
+        },
+        // vehicleRange
+        {
+          "component": "main",
+          "capability": "vehicleRange",
+          "attribute": "estimatedRemainingRange",
+          "value": 216,
+          "unit": "km"
+        },
+        // vehicleEngine
+        {
+          "component": "main",
+          "capability": "vehicleEngine",
+          "attribute": "engineState",
+          "value": null
+        },
+        // vehicleInformation
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehicleColor",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehicleYear",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehicleImage",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehicleTrim",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehiclePlate",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehicleModel",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehicleId",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleInformation",
+          "attribute": "vehicleMake",
+          "value": null
+        },
+        // vehicleOdometer
+        {
+          "component": "main",
+          "capability": "vehicleOdometer",
+          "attribute": "odometerReading",
+          "value": 25256,
+          "unit": "km"
+        },
+        // healthCheck
+        {
+          "component": "main",
+          "capability": "healthCheck",
+          "attribute": "checkInterval",
+          "value": 60,
+          "unit": "s"
+        },
+        {
+          "component": "main",
+          "capability": "healthCheck",
+          "attribute": "healthStatus",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "healthCheck",
+          "attribute": "DeviceWatch-Enroll",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "healthCheck",
+          "attribute": "DeviceWatch-DeviceStatus",
+          "value": "online"
+        },
+        // custom.disabledCapabilities
+        {
+          "component": "main",
+          "capability": "custom.disabledCapabilities",
+          "attribute": "disabledCapabilities",
+          "value": []
+        },
+        // vehicleDoorState
+        {
+          "component": "main",
+          "capability": "vehicleDoorState",
+          "attribute": "frontLeftDoor",
+          "value": "locked"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleDoorState",
+          "attribute": "rearRightDoor",
+          "value": "locked"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleDoorState",
+          "attribute": "rearLeftDoor",
+          "value": "locked"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleDoorState",
+          "attribute": "supportedAttributes",
+          "value": null
+        },
+        {
+          "component": "main",
+          "capability": "vehicleDoorState",
+          "attribute": "lockState",
+          "value": "locked"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleDoorState",
+          "attribute": "frontRightDoor",
+          "value": "locked"
+        },
+          // vehicleHvac
+        {
+          "component": "main",
+          "capability": "vehicleHvac",
+          "attribute": "temperatureRange",
+          "value": {
+            "minimum": 17,
+            "maximum": 27
+          },
+          "unit": "C"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleHvac",
+          "attribute": "defogState",
+          "value": "off"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleHvac",
+          "attribute": "hvacSpeedRange",
+          "value": {
+            "minimum": 0,
+            "maximum": 8
+          }
+        },
+        {
+          "component": "main",
+          "capability": "vehicleHvac",
+          "attribute": "temperature",
+          "value": 24,
+          "unit": "C"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleHvac",
+          "attribute": "hvacState",
+          "value": "off"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleHvac",
+          "attribute": "hvacSpeed",
+          "value": 0
+        },
+        // vehicleWarning
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "fuel",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "tirePressureFrontLeft",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "electricVehicleBattery",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "supportedAttributes",
+          "value": [
+            "tirePressureFrontLeft",
+            "tirePressureFrontRight",
+            "tirePressureRearLeft",
+            "tirePressureRearRight",
+            "auxiliaryBattery",
+            "washerFluid",
+            "brakeFluid",
+            "lampWire",
+            "fuel",
+            "engineOil"
+          ]
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "lampWire",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "auxiliaryBattery",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "brakeFluid",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "tirePressureFrontRight",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "washerFluid",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "smartKeyBattery",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "engineOil",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "tirePressureRearLeft",
+          "value": "normal"
+        },
+        {
+          "component": "main",
+          "capability": "vehicleWarning",
+          "attribute": "tirePressureRearRight",
+          "value": "normal"
+        }
+      ]
+    };
+
+    const response = {
+      headers: {
+        schema: "st-schema",
+        version: "1.0",
+        interactionType: "stateRefreshResponse",
+        requestId: requestId
+      },
+      deviceState: [deviceState]
+    };
+
+    return res.json(response);
   }
 
   // ----------------------
