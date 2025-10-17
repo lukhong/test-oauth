@@ -64,14 +64,12 @@ export class CarDeviceHandler extends DeviceHandler {
   }
 
   async getStateRefreshResponse() {
-    // Ensure states are loaded before returning response
-    if (this.states.length === 0) {
-      await this.initializeStates();
-    }
+    // Always fetch fresh data from GitHub on each state refresh request
+    const freshStates = await this.loadStates();
     return {
       externalDeviceId: this.deviceId,
       deviceCookie: {},
-      states: this.states
+      states: freshStates
     };
   }
 
