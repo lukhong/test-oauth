@@ -120,7 +120,7 @@ app.post("/interaction", async (req, res) => {
   // ----------------------
   // Discovery 처리
   // ----------------------
-  if (interactionType === "discovery") {
+  if (interactionType === "discoveryRequest") {
     const response = {
       headers: {
         schema: "st-schema",
@@ -191,7 +191,7 @@ app.post("/interaction", async (req, res) => {
   // ----------------------
   // stateRefresh 처리
   // ----------------------
-  if (interactionType === "stateRefresh") {
+  if (interactionType === "stateRefreshRequest) {
     const { devices } = req.body;
     
     const deviceState = {
