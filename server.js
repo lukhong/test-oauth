@@ -88,7 +88,7 @@ app.post("/interaction", async (req, res) => {
 
       for (const device of devices) {
         try {
-          const deviceState = deviceManager.getStateRefreshResponse(device.externalDeviceId);
+          const deviceState = await deviceManager.getStateRefreshResponse(device.externalDeviceId);
           deviceStates.push(deviceState);
         } catch (error) {
           console.error(`Error getting state for device ${device.externalDeviceId}:`, error.message);

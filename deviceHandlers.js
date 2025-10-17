@@ -1,10 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-// Get current directory for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import axios from 'axios';
 
 // Base Device Handler class
 export class DeviceHandler {
@@ -33,16 +27,21 @@ export class CarDeviceHandler extends DeviceHandler {
   constructor(deviceConfig) {
     super(deviceConfig);
     this.deviceId = deviceConfig.externalDeviceId || "partner-device-id-1";
-    this.states = this.loadStates();
+    this.states = [];
+    this.initializeStates();
   }
 
-  loadStates() {
+  async initializeStates() {
+    this.states = await this.loadStates();
+  }
+
+  async loadStates() {
     try {
-      const jsonFilePath = path.join(__dirname, 'carDeviceStates.json');
-      const rawData = fs.readFileSync(jsonFilePath, 'utf8');
-      return JSON.parse(rawData);
+      const githubUrl = 'https://raw.githubusercontent.com/lukhong/test-oauth/main/carDeviceStates.json';
+      const response = await axios.get(githubUrl);
+      return response.data;
     } catch (error) {
-      console.error('Error loading car device states:', error);
+      console.error('Error loading car device states from GitHub:', error.message);
       return [];
     }
   }
@@ -64,7 +63,11 @@ export class CarDeviceHandler extends DeviceHandler {
     };
   }
 
-  getStateRefreshResponse() {
+  async getStateRefreshResponse() {
+    // Ensure states are loaded before returning response
+    if (this.states.length === 0) {
+      await this.initializeStates();
+    }
     return {
       externalDeviceId: this.deviceId,
       deviceCookie: {},
@@ -127,11 +130,11 @@ export class DeviceManager {
     return responses;
   }
 
-  getStateRefreshResponse(deviceId) {
+  async getStateRefreshResponse(deviceId) {
     const handler = this.getDeviceHandler(deviceId);
     if (!handler) {
       throw new Error(`Device handler not found for device: ${deviceId}`);
     }
-    return handler.getStateRefreshResponse();
+    return await handler.getStateRefreshResponse();
   }
 }
