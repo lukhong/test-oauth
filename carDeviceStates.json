@@ -1,0 +1,306 @@
+[
+  {
+    "component": "main",
+    "capability": "st.vehicleHvacRemoteSwitch",
+    "attribute": "switch",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWindowState",
+    "attribute": "frontRightWindow",
+    "value": "closed"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWindowState",
+    "attribute": "rearRightWindow",
+    "value": "closed"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWindowState",
+    "attribute": "supportedAttributes",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWindowState",
+    "attribute": "frontLeftWindow",
+    "value": "closed"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWindowState",
+    "attribute": "rearLeftWindow",
+    "value": "closed"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleRange",
+    "attribute": "estimatedRemainingRange",
+    "value": 216,
+    "unit": "km"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleEngine",
+    "attribute": "engineState",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehicleColor",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehicleYear",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehicleImage",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehicleTrim",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehiclePlate",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehicleModel",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehicleId",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleInformation",
+    "attribute": "vehicleMake",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleOdometer",
+    "attribute": "odometerReading",
+    "value": 25256,
+    "unit": "km"
+  },
+  {
+    "component": "main",
+    "capability": "st.healthCheck",
+    "attribute": "checkInterval",
+    "value": 60,
+    "unit": "s"
+  },
+  {
+    "component": "main",
+    "capability": "st.healthCheck",
+    "attribute": "healthStatus",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.healthCheck",
+    "attribute": "DeviceWatch-Enroll",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.healthCheck",
+    "attribute": "DeviceWatch-DeviceStatus",
+    "value": "online"
+  },
+  {
+    "component": "main",
+    "capability": "custom.disabledCapabilities",
+    "attribute": "disabledCapabilities",
+    "value": []
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleDoorState",
+    "attribute": "frontLeftDoor",
+    "value": "locked"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleDoorState",
+    "attribute": "rearRightDoor",
+    "value": "locked"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleDoorState",
+    "attribute": "rearLeftDoor",
+    "value": "locked"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleDoorState",
+    "attribute": "supportedAttributes",
+    "value": null
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleDoorState",
+    "attribute": "lockState",
+    "value": "locked"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleDoorState",
+    "attribute": "frontRightDoor",
+    "value": "locked"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleHvac",
+    "attribute": "temperatureRange",
+    "value": {
+      "minimum": 17,
+      "maximum": 27
+    },
+    "unit": "C"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleHvac",
+    "attribute": "defogState",
+    "value": "off"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleHvac",
+    "attribute": "hvacSpeedRange",
+    "value": {
+      "minimum": 0,
+      "maximum": 8
+    }
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleHvac",
+    "attribute": "temperature",
+    "value": 24,
+    "unit": "C"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleHvac",
+    "attribute": "hvacState",
+    "value": "off"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleHvac",
+    "attribute": "hvacSpeed",
+    "value": 0
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "fuel",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "tirePressureFrontLeft",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "electricVehicleBattery",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "supportedAttributes",
+    "value": [
+      "tirePressureFrontLeft",
+      "tirePressureFrontRight",
+      "tirePressureRearLeft",
+      "tirePressureRearRight",
+      "auxiliaryBattery",
+      "washerFluid",
+      "brakeFluid",
+      "lampWire",
+      "fuel",
+      "engineOil"
+    ]
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "lampWire",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "auxiliaryBattery",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "brakeFluid",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "tirePressureFrontRight",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "washerFluid",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "smartKeyBattery",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "engineOil",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "tirePressureRearLeft",
+    "value": "normal"
+  },
+  {
+    "component": "main",
+    "capability": "st.vehicleWarning",
+    "attribute": "tirePressureRearRight",
+    "value": "normal"
+  }
+]
