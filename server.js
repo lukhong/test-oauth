@@ -44,7 +44,7 @@ app.get("/callback", (req, res) => {
 
 // SmartThings 상호작용 단일 엔드포인트
 app.post("/interaction", async (req, res) => {
-  const { headers, configurationData, callbackAuthentication } = req.body;
+  const { headers, authentication, callbackAuthentication, callbackUrls, devices } = req.body;
   const { interactionType, requestId } = headers;
 
   if (!interactionType) {
@@ -61,7 +61,7 @@ app.post("/interaction", async (req, res) => {
           schema: "st-schema",
           version: "1.0",
           interactionType: "discoveryResponse",
-          requestId: "abcabcabc",
+          requestId: requestId,
         },
         devices: deviceManager.getAllDiscoveryResponses(),
       };
@@ -72,7 +72,11 @@ app.post("/interaction", async (req, res) => {
     // grantCallbackAccess 처리
     // ----------------------
     if (interactionType === "grantCallbackAccess") {
-      const response = await OAuthHandler.handleGrantCallbackAccess(callbackAuthentication, requestId);
+      const enhancedCallbackAuthentication = {
+        ...callbackAuthentication,
+        callbackUrls: callbackUrls
+      };
+      const response = await OAuthHandler.handleGrantCallbackAccess(enhancedCallbackAuthentication, requestId);
       return res.json(response);
     }
 
@@ -80,7 +84,6 @@ app.post("/interaction", async (req, res) => {
     // stateRefresh 처리
     // ----------------------
     if (interactionType === "stateRefreshRequest") {
-      const { devices } = req.body;
       const deviceStates = [];
 
       for (const device of devices) {
