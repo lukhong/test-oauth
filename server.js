@@ -191,7 +191,7 @@ app.post("/interaction", async (req, res) => {
   // ----------------------
   // stateRefresh 처리
   // ----------------------
-  if (interactionType === "stateRefreshRequest) {
+  if (interactionType === "stateRefreshRequest") {
     const { devices } = req.body;
     
     const deviceState = {
