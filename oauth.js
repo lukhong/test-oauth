@@ -99,37 +99,7 @@ export class OAuthHandler {
 
   // SmartThings grantCallbackAccess 처리
   static async handleGrantCallbackAccess(callbackAuthentication, requestId) {
-    try {
-      const { code, clientId, clientSecret, callbackUrls } = callbackAuthentication;
-      if (!callbackUrls?.oauthToken) {
-        throw new Error("missing oauthToken URL in callbackUrls");
-      }
-
-      // SmartThings가 제공한 URL로 POST해서 access token 요청
-      const tokenResponse = await axios.post(callbackUrls.oauthToken, {
-        grant_type: "authorization_code",
-        code,
-        client_id: clientId,
-        client_secret: clientSecret,
-      });
-
-      return {
-        headers: {
-          schema: "st-schema",
-          version: "1.0",
-          interactionType: "accessTokenResponse",
-          requestId,
-        },
-        callbackAuthentication: {
-          tokenType: "Bearer",
-          accessToken: tokenResponse.data.access_token,
-          refreshToken: tokenResponse.data.refresh_token,
-          expiresIn: tokenResponse.data.expires_in || 86400,
-        },
-      };
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      throw new Error("Failed to obtain access token from callbackUrls.oauthToken");
-    }
+    // 아무것도 하지 않고 기본 응답 반환
+    return {};
   }
 }
