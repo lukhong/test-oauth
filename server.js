@@ -201,45 +201,45 @@ app.post("/interaction", async (req, res) => {
         // vehicleHvacRemoteSwitch
         {
           "component": "main",
-          "capability": "vehicleHvacRemoteSwitch",
+          "capability": "st.vehicleHvacRemoteSwitch",
           "attribute": "switch",
           "value": null
         },
         // vehicleWindowState
         {
           "component": "main",
-          "capability": "vehicleWindowState",
+          "capability": "st.vehicleWindowState",
           "attribute": "frontRightWindow",
           "value": "closed"
         },
         {
           "component": "main",
-          "capability": "vehicleWindowState",
+          "capability": "st.vehicleWindowState",
           "attribute": "rearRightWindow",
           "value": "closed"
         },
         {
           "component": "main",
-          "capability": "vehicleWindowState",
+          "capability": "st.vehicleWindowState",
           "attribute": "supportedAttributes",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleWindowState",
+          "capability": "st.vehicleWindowState",
           "attribute": "frontLeftWindow",
           "value": "closed"
         },
         {
           "component": "main",
-          "capability": "vehicleWindowState",
+          "capability": "st.vehicleWindowState",
           "attribute": "rearLeftWindow",
           "value": "closed"
         },
         // vehicleRange
         {
           "component": "main",
-          "capability": "vehicleRange",
+          "capability": "st.vehicleRange",
           "attribute": "estimatedRemainingRange",
           "value": 216,
           "unit": "km"
@@ -247,63 +247,63 @@ app.post("/interaction", async (req, res) => {
         // vehicleEngine
         {
           "component": "main",
-          "capability": "vehicleEngine",
+          "capability": "st.vehicleEngine",
           "attribute": "engineState",
           "value": null
         },
         // vehicleInformation
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehicleColor",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehicleYear",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehicleImage",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehicleTrim",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehiclePlate",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehicleModel",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehicleId",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleInformation",
+          "capability": "st.vehicleInformation",
           "attribute": "vehicleMake",
           "value": null
         },
         // vehicleOdometer
         {
           "component": "main",
-          "capability": "vehicleOdometer",
+          "capability": "st.vehicleOdometer",
           "attribute": "odometerReading",
           "value": 25256,
           "unit": "km"
@@ -311,26 +311,26 @@ app.post("/interaction", async (req, res) => {
         // healthCheck
         {
           "component": "main",
-          "capability": "healthCheck",
+          "capability": "st.healthCheck",
           "attribute": "checkInterval",
           "value": 60,
           "unit": "s"
         },
         {
           "component": "main",
-          "capability": "healthCheck",
+          "capability": "st.healthCheck",
           "attribute": "healthStatus",
           "value": null
         },
         {
           "component": "main",
-          "capability": "healthCheck",
+          "capability": "st.healthCheck",
           "attribute": "DeviceWatch-Enroll",
           "value": null
         },
         {
           "component": "main",
-          "capability": "healthCheck",
+          "capability": "st.healthCheck",
           "attribute": "DeviceWatch-DeviceStatus",
           "value": "online"
         },
@@ -344,44 +344,44 @@ app.post("/interaction", async (req, res) => {
         // vehicleDoorState
         {
           "component": "main",
-          "capability": "vehicleDoorState",
+          "capability": "st.vehicleDoorState",
           "attribute": "frontLeftDoor",
           "value": "locked"
         },
         {
           "component": "main",
-          "capability": "vehicleDoorState",
+          "capability": "st.vehicleDoorState",
           "attribute": "rearRightDoor",
           "value": "locked"
         },
         {
           "component": "main",
-          "capability": "vehicleDoorState",
+          "capability": "st.vehicleDoorState",
           "attribute": "rearLeftDoor",
           "value": "locked"
         },
         {
           "component": "main",
-          "capability": "vehicleDoorState",
+          "capability": "st.vehicleDoorState",
           "attribute": "supportedAttributes",
           "value": null
         },
         {
           "component": "main",
-          "capability": "vehicleDoorState",
+          "capability": "st.vehicleDoorState",
           "attribute": "lockState",
           "value": "locked"
         },
         {
           "component": "main",
-          "capability": "vehicleDoorState",
+          "capability": "st.vehicleDoorState",
           "attribute": "frontRightDoor",
           "value": "locked"
         },
           // vehicleHvac
         {
           "component": "main",
-          "capability": "vehicleHvac",
+          "capability": "st.vehicleHvac",
           "attribute": "temperatureRange",
           "value": {
             "minimum": 17,
@@ -391,13 +391,13 @@ app.post("/interaction", async (req, res) => {
         },
         {
           "component": "main",
-          "capability": "vehicleHvac",
+          "capability": "st.vehicleHvac",
           "attribute": "defogState",
           "value": "off"
         },
         {
           "component": "main",
-          "capability": "vehicleHvac",
+          "capability": "st.vehicleHvac",
           "attribute": "hvacSpeedRange",
           "value": {
             "minimum": 0,
@@ -406,45 +406,45 @@ app.post("/interaction", async (req, res) => {
         },
         {
           "component": "main",
-          "capability": "vehicleHvac",
+          "capability": "st.vehicleHvac",
           "attribute": "temperature",
           "value": 24,
           "unit": "C"
         },
         {
           "component": "main",
-          "capability": "vehicleHvac",
+          "capability": "st.vehicleHvac",
           "attribute": "hvacState",
           "value": "off"
         },
         {
           "component": "main",
-          "capability": "vehicleHvac",
+          "capability": "st.vehicleHvac",
           "attribute": "hvacSpeed",
           "value": 0
         },
         // vehicleWarning
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "fuel",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "tirePressureFrontLeft",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "electricVehicleBattery",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "supportedAttributes",
           "value": [
             "tirePressureFrontLeft",
@@ -461,55 +461,55 @@ app.post("/interaction", async (req, res) => {
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "lampWire",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "auxiliaryBattery",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "brakeFluid",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "tirePressureFrontRight",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "washerFluid",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "smartKeyBattery",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "engineOil",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "tirePressureRearLeft",
           "value": "normal"
         },
         {
           "component": "main",
-          "capability": "vehicleWarning",
+          "capability": "st.vehicleWarning",
           "attribute": "tirePressureRearRight",
           "value": "normal"
         }
