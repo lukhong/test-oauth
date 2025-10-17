@@ -52,7 +52,7 @@
     "component": "main",
     "capability": "st.vehicleInformation",
     "attribute": "vehicleColor",
-    "value": null
+    "value": "Red"
   },
   {
     "component": "main",
@@ -76,7 +76,7 @@
     "component": "main",
     "capability": "st.vehicleInformation",
     "attribute": "vehiclePlate",
-    "value": null
+    "value": "24H 99921"
   },
   {
     "component": "main",
