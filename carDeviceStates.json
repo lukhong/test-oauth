@@ -52,7 +52,7 @@
     "component": "main",
     "capability": "st.vehicleInformation",
     "attribute": "vehicleColor",
-    "value": "Red"
+    "value": "Blue"
   },
   {
     "component": "main",
@@ -184,7 +184,7 @@
     "component": "main",
     "capability": "st.vehicleHvac",
     "attribute": "defogState",
-    "value": "off"
+    "value": "on"
   },
   {
     "component": "main",
@@ -212,7 +212,7 @@
     "component": "main",
     "capability": "st.vehicleHvac",
     "attribute": "hvacSpeed",
-    "value": 3
+    "value": 5
   },
   {
     "component": "main",

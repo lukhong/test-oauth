@@ -36,9 +36,11 @@ export class CarDeviceHandler extends DeviceHandler {
   }
 
   async loadStates() {
+    console.log('loading states from github...');
     try {
       const githubUrl = 'https://raw.githubusercontent.com/lukhong/test-oauth/main/carDeviceStates.json';
       const response = await axios.get(githubUrl);
+      console.log('loaded data:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error loading car device states from GitHub:', error.message);
