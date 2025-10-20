@@ -52,7 +52,7 @@
     "component": "main",
     "capability": "st.vehicleInformation",
     "attribute": "vehicleColor",
-    "value": "Red"
+    "value": "Blue"
   },
   {
     "component": "main",
