@@ -143,4 +143,3 @@ export class DeviceManager {
     return await handler.getStateRefreshResponse(deviceId);
   }
 }
-}
