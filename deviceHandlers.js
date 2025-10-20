@@ -66,7 +66,7 @@ export class CarDeviceHandler extends DeviceHandler {
       deviceContext: {
         categories: ["Car"]
       },
-      deviceHandlerType: this.deviceConfig.deviceHandlerType || "4e8bdf64-c46a-4c9c-8d01-3929d9c923ed"
+      deviceHandlerType: "ab6bead8-2999-47bf-be7b-ac361a3cb0ea"
     };
   }
 
@@ -121,6 +121,7 @@ export class DeviceManager {
     }
     
     this.deviceHandlers.set(deviceId, handler);
+    console.log(`[DeviceManager] Added device handler - deviceId: ${deviceId}, type: ${deviceType}`);
   }
 
   getDeviceHandler(deviceId) {
@@ -136,10 +137,13 @@ export class DeviceManager {
   }
 
   async getStateRefreshResponse(deviceId) {
+    console.log(`[DeviceManager] Looking for device handler with deviceId: ${deviceId}`);
+    console.log(`[DeviceManager] Available deviceIds:`, Array.from(this.deviceHandlers.keys()));
     const handler = this.getDeviceHandler(deviceId);
     if (!handler) {
       throw new Error(`Device handler not found for device: ${deviceId}`);
     }
+    console.log(`[DeviceManager] Found handler for device: ${deviceId}`);
     return await handler.getStateRefreshResponse(deviceId);
   }
 }
