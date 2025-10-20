@@ -36,11 +36,16 @@ export class CarDeviceHandler extends DeviceHandler {
   }
 
   async loadStates() {
-    console.log('loading states from github...');
     try {
       const githubUrl = 'https://raw.githubusercontent.com/lukhong/test-oauth/main/carDeviceStates.json';
-      const response = await axios.get(githubUrl);
-      console.log('loaded data:', response.data);
+      const timestamp = Date.now(); // Cache-busting parameter
+      const response = await axios.get(`${githubUrl}?t=${timestamp}`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      });
       return response.data;
     } catch (error) {
       console.error('Error loading car device states from GitHub:', error.message);
@@ -65,7 +70,7 @@ export class CarDeviceHandler extends DeviceHandler {
     };
   }
 
-  async getStateRefreshResponse() {
+  async getStateRefreshResponse(deviceId) {
     // Always fetch fresh data from GitHub on each state refresh request
     const freshStates = await this.loadStates();
     return {
@@ -135,6 +140,7 @@ export class DeviceManager {
     if (!handler) {
       throw new Error(`Device handler not found for device: ${deviceId}`);
     }
-    return await handler.getStateRefreshResponse();
+    return await handler.getStateRefreshResponse(deviceId);
   }
+}
 }
