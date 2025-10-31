@@ -110,6 +110,33 @@ app.post("/interaction", async (req, res) => {
     }
 
     // ----------------------
+    // commandRequest 처리
+    // ----------------------
+    if (interactionType === "commandRequest") {
+      const response = {
+        headers: {
+          schema: "st-schema",
+          version: "1.0",
+          interactionType: "commandResponse",
+          requestId: requestId
+        },
+        deviceState: [
+          {
+            externalDeviceId: "partner-device-id-1",
+            deviceError: [
+              {
+                errorEnum: "RESOURCE-CONSTRAINT-VIOLATION",
+                detail: "detail detail detail"
+              }
+            ]
+          }
+        ]
+      };
+
+      return res.json(response);
+    }
+
+    // ----------------------
     // 미지원 interactionType 처리
     // ----------------------
     return res.status(400).json({ error: `unsupported interactionType: ${interactionType}` });
