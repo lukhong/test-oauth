@@ -125,7 +125,7 @@ app.post("/interaction", async (req, res) => {
             externalDeviceId: "partner-device-id-1",
             deviceError: [
               {
-                errorEnum: "CAPABILITY-NOT-SUPPORTED",
+                errorEnum: "DEVICE-UNAVAILABLE",
                 detail: "detail detail detail"
               }
             ]
