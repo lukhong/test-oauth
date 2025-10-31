@@ -125,7 +125,7 @@ app.post("/interaction", async (req, res) => {
             externalDeviceId: "partner-device-id-1",
             deviceError: [
               {
-                errorEnum: "RESOURCE-CONSTRAINT-VIOLATION",
+                errorEnum: "CAPABILITY-NOT-SUPPORTED",
                 detail: "detail detail detail"
               }
             ]
