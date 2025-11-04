@@ -133,7 +133,10 @@ app.post("/interaction", async (req, res) => {
         ]
       };
 
-      return res.json(response);
+      // 3초 지연 추가
+      setTimeout(() => {
+        return res.json(response);
+      }, 3000);
     }
 
     // ----------------------
