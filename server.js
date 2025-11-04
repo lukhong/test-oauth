@@ -133,10 +133,12 @@ app.post("/interaction", async (req, res) => {
         ]
       };
 
-      // 3초 지연 추가
-      setTimeout(() => {
-        return res.json(response);
-      }, 3000);
+      // 3초 지연 추가 (blocking)
+      const startTime = Date.now();
+      while (Date.now() - startTime < 3000) {
+        // 대기
+      }
+      return res.json(response);
     }
 
     // ----------------------
