@@ -66,7 +66,7 @@ export class CarDeviceHandler extends DeviceHandler {
       deviceContext: {
         categories: ["Car"]
       },
-      deviceHandlerType: "ab6bead8-2999-47bf-be7b-ac361a3cb0ea"
+      deviceHandlerType: "4e8bdf64-c46a-4c9c-8d01-3929d9c923ed"
     };
   }
 
