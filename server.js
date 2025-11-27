@@ -132,7 +132,7 @@ app.post("/interaction", async (req, res) => {
           }
         ]
       };
-
+      console.log(`commandRequest requestId ${requestId}`)
       // 3초 지연 추가 (blocking)
       const startTime = Date.now();
       while (Date.now() - startTime < 3000) {
