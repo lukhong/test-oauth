@@ -10,6 +10,24 @@ const tokens = {};    // token -> user
 const render2_stClientId = 'a951c0a3-cddd-4232-94db-c8821685c626';
 const render2_stSecret = '9fcde5beebbb17f28031075c76a03f622f3b7f61142bc7bbc9e6c02f26894f6d96aaeffac0ca0e48b3770fd8dbda176fd275a85e31dfc3042cad1d66640ead8d790985396c99c1ff3a700d26f031c489765f56cd60563125f210d9f8dcedec92fefab02deece9f061276336f794b3f8d9a53569aca3a377e3fcce08285cdbddbf293208f7f0e4e719061130793a396ea4f3b95296b29fc984c892ab66bca3da88b999b5feac1d2eaad4b47f217b7f0ca385402986cf071224a114921aaf2f4d3bb38309eaa83c5d6a7699508e926c450d438e2b6e284ac6d32c843ad7863946e1eee69aaba29ba6315f17cbcc389ef71872f89eca4ca44ae2d6aa02a8d68ae1b';
 
+//st token cache
+let stAccess = null;
+let stRefresh = null;
+let stStateCallbackUrl = null;
+
+// Export functions to access cached tokens
+export function getStAccessToken() {
+  return stAccess;
+}
+
+export function getStRefreshToken() {
+  return stRefresh;
+}
+
+export function getStStateCallbackUrl() {
+  return stStateCallbackUrl;
+}
+
 export class OAuthHandler {
   // 1️⃣ GET /authorize — 로그인 폼 표시
   static getAuthorizeForm(req, res) {
@@ -110,6 +128,7 @@ export class OAuthHandler {
     
     // Store callbackUrls in memory
     this.callbackUrls = callbackUrls;
+    stStateCallbackUrl = callbackUrls.stateCallback;
     
     // Create access token request
     const accessTokenRequest = {
@@ -128,13 +147,47 @@ export class OAuthHandler {
     };
     
     try {
-      // Make POST request to oauthToken URL
-      const response = await axios.post(callbackUrls.oauthToken, accessTokenRequest);
+      // Create OAuth access token request (standard OAuth format)
+      const oauthRequest = {
+        grant_type: callbackAuthentication.grantType,
+        code: callbackAuthentication.code,
+        client_id: render2_stClientId,
+        client_secret: render2_stSecret
+      };
+      
+      // Make POST request to oauthToken URL with proper OAuth format
+      const response = await axios.post(callbackUrls.oauthToken, new URLSearchParams(oauthRequest), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
       
       console.log(`Access token response: ${JSON.stringify(response.data, null, 2)}`);
       
-      // Return the response data
-      return response.data;
+      // Format response according to SmartThings schema
+      const smartThingsResponse = {
+        headers: {
+          schema: "st-schema",
+          version: "1.0",
+          interactionType: "accessTokenResponse",
+          requestId: requestId
+        },
+        callbackAuthentication: {
+          tokenType: "Bearer",
+          accessToken: response.data.access_token,
+          refreshToken: response.data.refresh_token,
+          expiresIn: response.data.expires_in
+        }
+      };
+      
+      // Cache the tokens for later use
+      stAccess = response.data.access_token;
+      stRefresh = response.data.refresh_token;
+      
+      console.log(`Cached tokens - Access: ${stAccess}, Refresh: ${stRefresh}`);
+      
+      // Return the response data in SmartThings format
+      return smartThingsResponse;
     } catch (error) {
       console.error(`Error requesting access token: ${error.message}`);
       throw error;

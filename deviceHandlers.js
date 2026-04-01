@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getStAccessToken, getStRefreshToken, getStStateCallbackUrl } from './oauth.js';
 
 // Base Device Handler class
 export class DeviceHandler {
@@ -145,5 +146,80 @@ export class DeviceManager {
     }
     console.log(`[DeviceManager] Found handler for device: ${deviceId}`);
     return await handler.getStateRefreshResponse(deviceId);
+  }
+
+  // State callback function that uses cached SmartThings tokens
+  async stateCallback(deviceId, stateData) {
+    // Get cached tokens
+    const accessToken = getStAccessToken();
+    const refreshToken = getStRefreshToken();
+    const stUrl = getStStateCallbackUrl();
+    
+    console.log(`Using cached values for state callback - Access: ${accessToken}, Refresh: ${refreshToken}, Url: ${stUrl}`);
+    
+    // Check if we have valid tokens and URL
+    if (!accessToken) {
+      throw new Error('No access token available for state callback');
+    }
+    
+    if (!stUrl) {
+      throw new Error('No state callback URL available');
+    }
+    
+    // Create the request body in the specified format
+    const requestBody = {
+      headers: {
+        schema: "st-schema",
+        version: "1.0",
+        interactionType: "stateCallback",
+        requestId: "abc-123-456" // This should be a unique ID in a real implementation
+      },
+      authentication: {
+        tokenType: "Bearer",
+        token: accessToken
+      },
+      deviceState: [
+        {
+          externalDeviceId: deviceId,
+          states: [
+            {
+              component: stateData.component,
+              capability: stateData.capability,
+              attribute: stateData.attribute,
+              value: stateData.value,
+              timestamp: Date.now(),
+              stateChange: "Y"
+            }
+          ]
+        }
+      ]
+    };
+    
+    console.log(`State callback for device ${deviceId} with request body:`, JSON.stringify(requestBody, null, 2));
+    
+    try {
+      // Send the POST request to SmartThings
+      const response = await axios.post(stUrl, requestBody, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log(`State callback response:`, JSON.stringify(response.data, null, 2));
+      
+      return {
+        success: true,
+        message: 'State callback processed successfully',
+        deviceId: deviceId,
+        response: response.data
+      };
+    } catch (error) {
+      console.error('Error sending state callback:', error.message);
+      if (error.response) {
+        console.error('Error response data:', JSON.stringify(error.response.data, null, 2));
+        console.error('Error response status:', error.response.status);
+      }
+      throw error;
+    }
   }
 }

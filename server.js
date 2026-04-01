@@ -147,5 +147,23 @@ app.post("/interaction", async (req, res) => {
   }
 });
 
+// POST /statecallback endpoint
+app.post("/statecallback", async (req, res) => {
+  try {
+    const { deviceId, state } = req.body;
+    
+    if (!deviceId || !state) {
+      return res.status(400).json({ error: "Missing deviceId or state in request body" });
+    }
+    
+    // Call the stateCallback function in deviceHandlers.js
+    const result = await deviceManager.stateCallback(deviceId, state);
+    return res.json(result);
+  } catch (error) {
+    console.error("Error in /statecallback endpoint:", error.message);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // 서버 시작
 app.listen(PORT, () => console.log(`✅ Mock OAuth server running on ${PORT}`));
