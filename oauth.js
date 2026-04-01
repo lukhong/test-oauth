@@ -99,7 +99,7 @@ export class OAuthHandler {
 
   // SmartThings grantCallbackAccess 처리
   static async handleGrantCallbackAccess(callbackAuthentication, requestId) {
-    // 아무것도 하지 않고 기본 응답 반환
+    console.log(`handleGrantCallbackAccess request: ${callbackAuthentication} `);
     return {};
   }
 }
