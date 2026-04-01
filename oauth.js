@@ -136,7 +136,7 @@ export class OAuthHandler {
         schema: "st-schema",
         version: "1.0",
         interactionType: "accessTokenRequest",
-        requestId: requestId
+        requestId: "access_token_request_12345"
       },
       callbackAuthentication: {
         grantType: callbackAuthentication.grantType,
@@ -147,18 +147,11 @@ export class OAuthHandler {
     };
     
     try {
-      // Create OAuth access token request (standard OAuth format)
-      const oauthRequest = {
-        grant_type: callbackAuthentication.grantType,
-        code: callbackAuthentication.code,
-        client_id: render2_stClientId,
-        client_secret: render2_stSecret
-      };
-      
-      // Make POST request to oauthToken URL with proper OAuth format
-      const response = await axios.post(callbackUrls.oauthToken, new URLSearchParams(oauthRequest), {
+    
+      // Make POST request to oauthToken URL with proper format
+      const response = await axios.post(callbackUrls.oauthToken, accessTokenRequest, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         }
       });
       
