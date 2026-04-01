@@ -72,11 +72,7 @@ app.post("/interaction", async (req, res) => {
     // grantCallbackAccess 처리
     // ----------------------
     if (interactionType === "grantCallbackAccess") {
-      const enhancedCallbackAuthentication = {
-        ...callbackAuthentication,
-        callbackUrls: callbackUrls
-      };
-      const response = await OAuthHandler.handleGrantCallbackAccess(enhancedCallbackAuthentication, requestId);
+      const response = await OAuthHandler.handleGrantCallbackAccess(req.body, requestId);
       return res.json(response);
     }
 
