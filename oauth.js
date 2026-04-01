@@ -156,31 +156,15 @@ export class OAuthHandler {
       });
       
       console.log(`Access token response: ${JSON.stringify(response.data, null, 2)}`);
-      
-      // Format response according to SmartThings schema
-      const smartThingsResponse = {
-        headers: {
-          schema: "st-schema",
-          version: "1.0",
-          interactionType: "accessTokenResponse",
-          requestId: requestId
-        },
-        callbackAuthentication: {
-          tokenType: "Bearer",
-          accessToken: response.data.access_token,
-          refreshToken: response.data.refresh_token,
-          expiresIn: response.data.expires_in
-        }
-      };
-      
+         
       // Cache the tokens for later use
-      stAccess = response.data.access_token;
-      stRefresh = response.data.refresh_token;
+      stAccess = response.data.callbackAuthentication.accessToken;
+      stRefresh = response.data.callbackAuthentication.refreshToken;
       
       console.log(`Cached tokens - Access: ${stAccess}, Refresh: ${stRefresh}`);
       
       // Return the response data in SmartThings format
-      return smartThingsResponse;
+      return true;
     } catch (error) {
       console.error(`Error requesting access token: ${error.message}`);
       throw error;
