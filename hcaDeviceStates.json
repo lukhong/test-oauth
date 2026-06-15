@@ -3,7 +3,7 @@
     "component": "main",
     "capability": "st.healthCheck",
     "attribute": "healthStatus",
-    "value": "ONLINE"
+    "value": "online"
   },
   {
     "component": "main",
