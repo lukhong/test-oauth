@@ -122,7 +122,7 @@ export class DeviceManager {
       modelName: "Test Model",
       hwVersion: "3",
       swVersion: "1.0",
-      deviceHandlerType: "037dfcc3-eeda-46f3-9335-0d11db855707"//hca dryer
+      deviceHandlerType: "0a6ad5f2-07a1-3930-9d08-569940ad99d5"//hca dryer restricted
     };
     
     this.addDevice(carDeviceConfig.externalDeviceId, 'car', carDeviceConfig);
