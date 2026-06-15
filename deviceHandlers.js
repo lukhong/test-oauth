@@ -68,6 +68,7 @@ export class CarDeviceHandler extends DeviceHandler {
   }
 
   getDiscoveryResponse() {
+    console.log(`discovery response`);
     return {
       externalDeviceId: this.deviceId,
       friendlyName: this.deviceConfig.friendlyName || "Rend HCA",
@@ -85,7 +86,7 @@ export class CarDeviceHandler extends DeviceHandler {
       deviceContext: {
         categories: ["Dryer"]
       },
-      deviceHandlerType: "037dfcc3-eeda-46f3-9335-0d11db855707" //hca dryer
+      deviceHandlerType: "0a6ad5f2-07a1-3930-9d08-569940ad99d5" //hca dryer restricted
     };
   }
 

@@ -50,7 +50,8 @@ app.post("/interaction", async (req, res) => {
   if (!interactionType) {
     return res.status(400).json({ error: "missing interactionType" });
   }
-
+  
+console.log(`interaction start: ${interactionType}`);
   try {
     // ----------------------
     // Discovery 처리
