@@ -1,0 +1,26 @@
+[
+  {
+    "component": "main",
+    "capability": "st.healthCheck",
+    "attribute": "healthStatus",
+    "value": "ONLINE"
+  },
+  {
+    "component": "main",
+    "capability": "hca.switchState",
+    "attribute": "switchState",
+    "value": "on"
+  },
+  {
+    "component": "main",
+    "capability": "hca.dryerState",
+    "attribute": "progress",
+    "value": "finished"
+  },
+  {
+    "component": "main",
+    "capability": "st.remoteControlStatus",
+    "attribute": "remoteControlEnabled",
+    "value": "false"
+  }
+]
