@@ -33,7 +33,7 @@ export class CarDeviceHandler extends DeviceHandler {
   }
 
   async initializeStates() {
-    this.states = await this.loadStates();
+    this.states = await this.loadStates_from_file();
   }
 
   async loadStates() {
@@ -54,26 +54,44 @@ export class CarDeviceHandler extends DeviceHandler {
     }
   }
 
+   async loadStates_from_file() {
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const filePath = path.join(process.cwd(), 'hcaDeviceStates.json');
+      const data = await fs.promises.readFile(filePath, 'utf-8');
+      return JSON.parse(data);
+    } catch (error) {
+      console.error('Error loading HCA device states from file:', error.message);
+      return [];
+    }
+  }
+
   getDiscoveryResponse() {
     return {
       externalDeviceId: this.deviceId,
-      friendlyName: this.deviceConfig.friendlyName || "Rend",
+      friendlyName: this.deviceConfig.friendlyName || "Rend HCA",
+      // manufacturerInfo: {
+      //   manufacturerName: this.deviceConfig.manufacturerName || "Virtual Hyundai",
+      //   modelName: this.deviceConfig.modelName || "Test Model",
+      //   hwVersion: this.deviceConfig.hwVersion || "3",
+      //   swVersion: this.deviceConfig.swVersion || "1.0"
+      // },
       manufacturerInfo: {
-        manufacturerName: this.deviceConfig.manufacturerName || "Virtual Hyundai",
-        modelName: this.deviceConfig.modelName || "Test Model",
-        hwVersion: this.deviceConfig.hwVersion || "3",
-        swVersion: this.deviceConfig.swVersion || "1.0"
+        manufacturerName: this.deviceConfig.manufacturerName || "Virtual HCA",
+        modelName: this.deviceConfig.modelName || "Test Model"
       },
+
       deviceContext: {
-        categories: ["Car"]
+        categories: ["Dryer"]
       },
-      deviceHandlerType: "4e8bdf64-c46a-4c9c-8d01-3929d9c923ed"
+      deviceHandlerType: "037dfcc3-eeda-46f3-9335-0d11db855707" //hca dryer
     };
   }
 
   async getStateRefreshResponse(deviceId) {
     // Always fetch fresh data from GitHub on each state refresh request
-    const freshStates = await this.loadStates();
+    const freshStates = await this.loadStates_from_file();
     return {
       externalDeviceId: this.deviceId,
       deviceCookie: {},
@@ -100,11 +118,11 @@ export class DeviceManager {
     const carDeviceConfig = {
       externalDeviceId: "partner-device-id-1",
       friendlyName: "Rend",
-      manufacturerName: "Virtual Hyundai",
+      manufacturerName: "Virtual HCA",
       modelName: "Test Model",
       hwVersion: "3",
       swVersion: "1.0",
-      deviceHandlerType: "4e8bdf64-c46a-4c9c-8d01-3929d9c923ed"
+      deviceHandlerType: "037dfcc3-eeda-46f3-9335-0d11db855707"//hca dryer
     };
     
     this.addDevice(carDeviceConfig.externalDeviceId, 'car', carDeviceConfig);
